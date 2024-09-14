@@ -1,0 +1,52 @@
+<!--index.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskruti ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="section">
+        <div class="section__background">
+            <img id="backgroundImage" class="section__background-image" src="assets/sanskruti.jpg" alt="">
+        </div>
+        <div class="music-card__wrapper">
+            <div class="music-card">
+                <div class="music-card__content">
+                    <img class="music-image" src="assets/sanskruti.jpg" alt="">
+                    <div class="music-info">
+                        <h2 class="music-name">Hasti Rahe tu, Hasti Rahe, Haya ki lali khilti rahe...</h2>
+                        <p class="music-artist">Saathiya</p>
+                    </div>
+                    <audio src="assets/hansti_rahe_tu.mp3"></audio>
+                    <div class="music-progress">
+                        <div id="progress-bar" class="music-progress-bar"></div>
+                        <div class="music-progress__time">
+                            <span class="music-progress__time-item music-current-time">00:00</span>
+                            <span class="music-progress__time-item music-duration-time">00:00</span>
+                        </div>
+                    </div>
+                    <div class="music-controls">
+                        <div id="prev" class="music-controls-item">
+                            <i class="fas fa-backward music-controls-item--icon"></i>
+                        </div>
+
+                        <div id="play" class="music-controls-item">
+                            <i class="fas fa-play music-controls-item--icon play-icon"></i>
+                            <div class="play-icon-background"></div>
+                        </div>
+
+                        <div id="next" class="music-controls-item">
+                            <i class="fas fa-forward music-controls-item--icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
