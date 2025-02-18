@@ -1,5 +1,149 @@
 //styles.css
 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georama', sans-serif;
+}
+
+body {
+    background-color: rgb(31, 31, 31);
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.section {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+.section__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.section__background:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(31, 31, 31, .8);
+    backdrop-filter: blur(20px);
+    z-index: 11;
+}
+
+.section__background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.music-card {
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+    height: auto;
+    border-radius: 25px;
+    transform-style: preserve-3d;
+    transition: all .2s linear;
+    z-index: 2;
+}
+
+.music-card__wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-card__content {
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.music-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    border-radius: 20px;
+    object-fit: cover;
+    filter: drop-shadow(-20px 10px 10px rgba(0, 0, 0, 0.25));
+    margin: 0 auto;
+    max-width: 360px;
+    display: block;
+}
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+    .music-card {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .music-image {
+        max-width: 100%;
+        margin: 10px auto;
+        filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.20));
+    }
+
+    .music-info {
+        padding: 10px 15px;
+    }
+
+    .music-name {
+        font-size: 1.2em;
+    }
+
+    .music-artist {
+        font-size: 0.9em;
+    }
+
+    .music-controls {
+        padding: 15px;
+        width: 100%;
+        max-width: 270px;
+    }
+
+    .music-progress {
+        width: calc(100% - 30px);
+        margin: 15px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .music-image {
+        max-height: 45vh;
+        width: auto;
+        margin: 10px auto;
+    }
+
+    .music-controls {
+        padding: 10px;
+    }
+
+    .music-controls-item {
+        width: 40px;
+        height: 40px;
+    }
+}
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
