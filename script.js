@@ -232,4 +232,53 @@ const next = document.querySelector('#next');
                 const y = ((window.innerHeight) / 3 - e.pageY) / 30
                 boxMove.style.transform = "rotateY(" + x + "deg) rotateX(" + y + "deg)"
             });
+}
+        // Add this at the beginning of your script.js
+        function getSongNumberFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const songParam = params.get('song');
+            
+            // Convert to number and subtract 1 for zero-based array index
+            const songNumber = songParam ? parseInt(songParam) - 1 : 0;
+            
+            // Validate the song number
+            if (songNumber >= 0 && songNumber < playList.length) {
+                return songNumber;
+            }
+            return 0; // Default to first song if invalid parameter
         }
+
+        // Initialize the player with the song from URL
+        window.onload = function() {
+            selectedMusic = getSongNumberFromURL();
+            loadMusic(playList[selectedMusic]);
+            
+            // Update URL when song changes (optional)
+            const updateURL = (songIndex) => {
+                const newURL = `${window.location.pathname}?song=${songIndex + 1}`;
+                window.history.pushState({ path: newURL }, '', newURL);
+            };
+            
+            // Add URL update to next/prev functions
+            const originalNextMusic = nextMusic;
+            const originalPrevMusic = prevMusic;
+            
+            nextMusic = function() {
+                originalNextMusic();
+                updateURL(selectedMusic);
+            };
+            
+            prevMusic = function() {
+                originalPrevMusic();
+                updateURL(selectedMusic);
+            };
+        }
+
+        // Optional: Handle browser back/forward buttons
+        window.onpopstate = function() {
+            selectedMusic = getSongNumberFromURL();
+            loadMusic(playList[selectedMusic]);
+            if (isPlaying) {
+                music.play();
+            }
+        };
