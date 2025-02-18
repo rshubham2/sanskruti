@@ -22,31 +22,58 @@ const next = document.querySelector('#next');
         });
 
         const playList = [{
-            artist: 'Saathiya',
-            cover: 'assets/sanskruti.jpg',
-            musicName: 'Hasti Rahe tu, Hasti Rahe, \n Haya ki lali khilti rahe...',
-            musicPath: `assets/hansti_rahe_tu.mp3`
+            musicName: 'Tum Bin',
+            cover: 'assets/image/tumMIle.jpeg',
+            artist: 'Before you, My world was Silent',
+            musicPath: 'assets/audio/Tum Mile - Tum Mile 320 Kbps (mp3cut.net) (1).mp3'
         }, {
-            artist: 'Mumbai Pune Mumbai',
-            cover: 'assets/sanskruti3.jpg',
-            musicName: 'Kadhi tu..., Rim Jhim Jharnari Barsat \n Kadhi tu..., Cham Cham Karnari Chandnya',
-            musicPath: `assets/kadhi_tu.mp3`
+            musicName: 'Dilkashi',
+            cover: 'assets/image/raanjhana.jpeg',
+            artist: 'The First Glimpse',
+            musicPath: 'assets/audio/raanjhanaa_theme.mp3'
         }, {
-            artist: 'RHTDM',
-            cover: 'assets/sanskruti4.jpg',
-            musicName: 'Kaise kahu main tujhse, Rehna hai tere dil main..',
-            musicPath: `assets/kaise-mein-kahun-tujhse-13500.mp3`
+            musicName: 'Tum Tak',
+            cover: 'assets/image/tumTak.jpeg',
+            artist: 'Ranjhanaa',
+            musicPath: 'assets/audio/Tum Tak - Raanjhanaa 320 Kbps (mp3cut.net).mp3'
         }, {
-            artist: 'Lil Nas X',
-            cover: 'assets/sanskruti5.jpg',
-            musicName: 'Ha tum bilkul vaisi ho, jaisa maine socha tha \n चाँद सी महबूबा हो मेरी कब ऐसा मैंने सोचा ',
-            musicPath: `assets/Ha-Tum-Bilkul-Waisi-Ho-Jaisa-Maine-Socha-Tha-Chand-Si-Mehbooba-Hindi-1.mp3`
+            musicName: 'Diwangi',
+            cover: 'assets/image/teraFitoor.jpeg',
+            artist: 'Secretly Falling for you',
+            musicPath: 'assets/audio/Tera Fitoor Genius 320 Kbps (mp3cut.net).mp3'
         }, {
-            artist: 'Post Malone',
-            cover: 'assets/sanskruti6.jpg',
-            musicName: 'Sangu kashya me, sakhya tula re, Mazya hya bhavna, Mazya sanskruti la preet kalena',
-            musicPath: `assets/maziya_priyala_preet.mp3`
-        }]
+            musicName: 'खिडकीतून डोकावुनि',
+            cover: 'assets/image/hrydayatVajeSomething.jpeg',
+            artist: 'Seeking you',
+            musicPath: 'assets/audio/hrydayat vaje something.m4a'
+        }, {
+            musicName: 'स्वप्नरंग',
+            cover: 'assets/image/chimbBhijlele.jpg',
+            artist: 'Love in a Monsoon Melody',
+            musicPath: 'assets/audio/Chimb-Bhijlele (mp3cut.net).mp3'
+        }, {
+            musicName: 'खुलता कळी खुलेना',
+            cover: 'assets/image/khultaKali.jpg',
+            artist: 'Confusion & Emotional Struggle',
+            musicPath: 'assets/audio/Khulta-Kali-Khulena (mp3cut.net).mp3'
+        }, {
+            musicName: 'अव्यक्त',
+            cover: 'assets/image/tuhire.jpeg',
+            artist: 'More than Friendship?',
+            musicPath: 'assets/audio/tu hi re maza mitwa.m4a'
+        }, {
+            musicName: 'प्रेम',
+            cover: 'assets/image/tumala.jpg',
+            artist: 'Realizing Love❤️',
+            musicPath: 'assets/audio/Tu Mala Mi Tula  Lyrical  Marathi Lyrics (mp3cut.net).mp3'
+        }, {
+            musicName: 'माझ्या संस्कृतीला प्रीत कळेना',
+            cover: 'assets/image/maztapreyala.jpg',
+            artist: 'The Struggle to Express',
+            musicPath: 'assets/audio/Maziya Priyala Preet Kalena Full Song(Rare,Original) (mp3cut.net).mp3'
+        }];
+
+        
 
         const playMusic = () => {
             music.play();
@@ -71,30 +98,42 @@ const next = document.querySelector('#next');
         }
 
         const nextMusic = () => {
-            selectedMusic = (selectedMusic + 1) % playList.length
+            // Only increment if we haven't reached the end
+            if (selectedMusic < playList.length - 1) {
+                selectedMusic++;
+            } else {
+                // Loop back to the first song if we're at the end
+                selectedMusic = 0;
+            }
             loadMusic(playList[selectedMusic]);
             music.duration = 0;
             if (isPlaying) {
-                music.play()
+                music.play();
             }
             musicCard.classList.add('right-weight');
-            progressBar.style.width = `0%`
+            progressBar.style.width = `0%`;
             setTimeout(() => {
                 musicCard.classList.remove('right-weight');
-            }, 200)
+            }, 200);
         }
 
         const prevMusic = () => {
-            selectedMusic = (selectedMusic - 1 + playList.length) % playList.length
+            // Only decrement if we're not at the first song
+            if (selectedMusic > 0) {
+                selectedMusic--;
+            } else {
+                // Loop to the last song if we're at the beginning
+                selectedMusic = playList.length - 1;
+            }
             loadMusic(playList[selectedMusic]);
             if (isPlaying) {
-                music.play()
+                music.play();
             }
             musicCard.classList.add('left-weight');
-            progressBar.style.width = `0%`
+            progressBar.style.width = `0%`;
             setTimeout(() => {
                 musicCard.classList.remove('left-weight');
-            }, 200)
+            }, 200);
         }
 
         const loadMusic = (playList) => {
@@ -166,7 +205,18 @@ const next = document.querySelector('#next');
             } else second = s
 
             return selectTime.textContent = `${minute}:${second}`;
-        }
+}
+        
+            // When a song ends, play the next one in sequence
+            music.addEventListener('ended', () => {
+                nextMusic();
+            });
+
+            // Initialize the player with the first song
+            window.onload = function() {
+                selectedMusic = 0;  // Start with the first song
+                loadMusic(playList[selectedMusic]);
+            }
 
 
 
